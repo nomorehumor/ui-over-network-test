@@ -10,6 +10,8 @@ This project is a simple Java application that loads a user interface (UI) from 
 
 3. **Provide the URL**: Enter the URL of the JSON file when prompted. The application will fetch the JSON, parse it, and render the UI accordingly.
 
+Example of the JSON can be found here: https://gist.githubusercontent.com/nomorehumor/217a50872edef8f7b149f1d28dd0c04a/raw/531db60f805305aa3b7f06866a8fb65ad07aaa35/ui_example.json
+
 ## JSON Format
 
 The JSON file should have the following structure:

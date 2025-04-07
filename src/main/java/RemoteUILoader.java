@@ -1,9 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.URL;
+import java.net.URISyntaxException;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -23,10 +24,14 @@ public class RemoteUILoader {
             return;
         }
 
-        createUI(uiJsonDefinitionURL);
+        createUIFromURL(uiJsonDefinitionURL);
     }
 
-    private static void createUI(String uiJsonDefinitionURL) {
+    /**
+     * Create a UI from a JSON definition URL.
+     * @param uiJsonDefinitionURL URL to the JSON file
+     */
+    private static void createUIFromURL(String uiJsonDefinitionURL) {
         SwingUtilities.invokeLater(() -> {
             try {
                 JsonObject json = loadUIFromURL(uiJsonDefinitionURL);
@@ -37,6 +42,10 @@ public class RemoteUILoader {
         });
     }
 
+    /**
+     * Create a UI from a JSON object.
+     * @param json JSON object containing UI definition
+     */
     private static void createUIFromJSON(JsonObject json) {
         JFrame frame = new JFrame("Remote UI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,7 +72,12 @@ public class RemoteUILoader {
         frame.setVisible(true);
     }
 
-    static JsonObject loadUIFromURL(String urlStr) throws Exception {
+    /**
+     * Load a UI JSON definition from a URL.
+     * @param urlStr URL to the JSON file
+     * @return loaded json object
+     */
+    static JsonObject loadUIFromURL(String urlStr) throws IOException, URISyntaxException {
         URI uri = new URI(urlStr);
         JsonReader reader = new JsonReader(new InputStreamReader(uri.toURL().openStream()));
         reader.setLenient(true);
